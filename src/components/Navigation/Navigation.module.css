@@ -1,0 +1,24 @@
+.navContainer {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    background: #d9d9d9;
+}
+
+.navMenu {
+    display: flex;
+}
+
+.navLinks a{
+    background: #ffffff;
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.88);
+    margin: 5px;
+    padding: 4px 15px;
+    border-radius: 6px;
+}
+
+.navLinks a:hover {
+    border: 1px solid #4096ff !important;
+    border-color: #d9d9d9;
+}

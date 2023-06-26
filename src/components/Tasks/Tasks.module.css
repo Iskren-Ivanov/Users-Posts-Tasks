@@ -1,0 +1,58 @@
+.tableWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.taskTable {
+    padding: 10px;
+}
+
+.taskTable thead {
+    padding: 10px;
+}
+
+.taskTable tbody {
+    display: flex;
+    flex-direction: column; 
+}
+
+.taskTable tr {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+}
+
+.taskTable th {
+    display: flex;
+    justify-content: flex-start;
+    min-width: 33%;
+}
+
+.taskTable td {
+    min-width: 33%;
+    padding: 5px;
+}
+
+.taskTable th,
+.taskTable td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.tableNavigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navButton {
+    padding: 10px;
+    margin: 5px;
+}
+
+.tableNavigation button:first-child,
+.tableNavigation button:last-child {
+    padding: 15px;
+}

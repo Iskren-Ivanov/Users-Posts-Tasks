@@ -1,0 +1,14 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+}
+ 
+.modal {
+    width: 60% !important;
+}
+
+.bodyStyle {
+    height: 400px;
+    overflow: auto;
+}
