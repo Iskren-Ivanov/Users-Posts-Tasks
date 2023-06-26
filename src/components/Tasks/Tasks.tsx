@@ -7,14 +7,14 @@ const Tasks: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const tasksPerPage = 10;
     const { data: tasksLength = 0 } = useGetTasksLengthQuery();
-    const { data: tasks = [], isSuccess, refetch } = useGetTasksQuery({
+    const { data: tasks = [], refetch } = useGetTasksQuery({
         page: currentPage,
         limit: tasksPerPage,
     });
 
     useEffect(() => {
         refetch();
-    }, [currentPage]);
+    }, [currentPage, refetch]);
 
     const totalPages = Math.ceil(tasksLength / tasksPerPage);
 
