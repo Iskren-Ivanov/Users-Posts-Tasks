@@ -1,7 +1,7 @@
 import React from "react";
 import Spinner from '../Spinner/Spinner';
-import Error from '../../Error/Error';
 import UserData from "./components/UserData";
+import Message from "../Message/Message";
 
 import { useGetUsersQuery } from '../../Redux/UsersSlice';
 import { Collapse, CollapseProps } from "antd";
@@ -17,7 +17,8 @@ const Users: React.FC = () => {
     }
 
     if (isError) {
-        return <Error />
+        return <Message status="error" title="Something went wrong, contact the administrators."
+            label="Refresh Page" />
     }
 
     const mappedUsers: CollapseProps['items'] = users.map((user) => ({

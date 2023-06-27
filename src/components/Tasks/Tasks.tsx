@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
+import Message from "../Message/Message";
 import { useGetTasksQuery, useGetTasksLengthQuery } from "../../Redux/TasksSlice";
 import PaginationButtons from './components/PaginationButtons';
 
 import styles from "./Tasks.module.css";
+
 const Tasks: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const tasksPerPage = 10;
-    const { data: tasksLength = 0 } = useGetTasksLengthQuery();
-    const { data: tasks = [], refetch } = useGetTasksQuery({
+    const { data: tasksLength = 0, isError: isErrorGetTasksLength } = useGetTasksLengthQuery();
+    const { data: tasks = [], refetch, isError: isErrorGetTasks } = useGetTasksQuery({
         page: currentPage,
         limit: tasksPerPage,
     });
-
+ 
     useEffect(() => {
         refetch();
     }, [currentPage, refetch]);
+
+    if (isErrorGetTasksLength || isErrorGetTasks) {
+        return <Message status="error" title="Something went wrong, contact the administrators."
+            label="Refresh Page" />
+    }
 
     const totalPages = Math.ceil(tasksLength / tasksPerPage);
 

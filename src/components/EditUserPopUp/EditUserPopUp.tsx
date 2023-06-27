@@ -1,7 +1,7 @@
 import React from "react";
 import UserInput from './components/UserInput';
 import { useUpdateUserMutation } from '../../Redux/UsersSlice';
-import Error from '../../Error/Error';
+import AntResult from '../Message/Message'
 import { convertToUser } from "../../helpers/userHelper";
 import { Button, Modal, Form } from 'antd';
 import { IEditUserPopUp, IMapUserPropsToLabels, IUser } from '../../interfaces';
@@ -31,19 +31,16 @@ const EditUserPopUp: React.FC<IEditUserPopUp> = ({ user, isOpen, setIsOpen }) =>
     const [updateUser, { isLoading, isError }] = useUpdateUserMutation();
 
     if (isError) {
-        return <Error />
+        return <AntResult status="error" title="Something went wrong, contact the administrators."
+            label="Refresh Page" />
     }
 
     const handleSubmit = async () => {
-        try {
-            const validateResults = await form.validateFields();
-            const editedUser: IUser = convertToUser(validateResults);
-            // Important: resource will not be really updated on the server but it will be faked as if.
-            const updatedUser = await updateUser(editedUser);
-            setIsOpen(false);
-        } catch (error) {
-            console.log('Validation error in handleSubmit is:', JSON.stringify(error, null, 2));
-        }
+        const validateResults = await form.validateFields();
+        const editedUser: IUser = convertToUser(validateResults);
+        // Important: resource will not be really updated on the server but it will be faked as if.
+        const updatedUser = await updateUser(editedUser);
+        setIsOpen(false);
     };
 
     const handleCancel = () => {
@@ -51,33 +48,31 @@ const EditUserPopUp: React.FC<IEditUserPopUp> = ({ user, isOpen, setIsOpen }) =>
     };
 
     return (
-        <>
-            <Modal
-                className={styles.modal}
-                open={isOpen}
-                title="Title"
-                onOk={handleSubmit}
-                onCancel={handleCancel}
-                footer={[
-                    <Button key="submit" type="primary" disabled={false} onClick={handleSubmit}>
-                        Submit
-                    </Button>,
-                    <Button key="cancel" type="primary" disabled={false} onClick={handleCancel}>
-                        Cancel
-                    </Button>,
-                ]}
-                bodyStyle={{
-                    height: '350px',
-                    overflow: 'auto'
-                }}
-            >
-                <Form form={form} initialValues={user}>
-                    <div>
-                        <UserInput user={user} mapPropsToLabels={mapPropsToLabels} />
-                    </div>
-                </Form>
-            </Modal>
-        </>
+        <Modal
+            className={styles.modal}
+            open={isOpen}
+            title="Title"
+            onOk={handleSubmit}
+            onCancel={handleCancel}
+            footer={[
+                <Button key="submit" type="primary" disabled={false} onClick={handleSubmit}>
+                    Submit
+                </Button>,
+                <Button key="cancel" type="primary" disabled={false} onClick={handleCancel} >
+                    {isLoading ? 'Close' : 'Cancel'}
+                </Button>,
+            ]}
+            bodyStyle={{
+                height: '350px',
+                overflow: 'auto'
+            }}
+        >
+            <Form form={form} initialValues={user}>
+                <div>
+                    <UserInput user={user} mapPropsToLabels={mapPropsToLabels} />
+                </div>
+            </Form>
+        </Modal>
     );
 };
 

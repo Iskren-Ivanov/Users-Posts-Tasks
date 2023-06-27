@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useGetPostQuery, useUpdatePostMutation, useDeletePostMutation } from '../../Redux/PostsSlice';
 import Spinner from '../Spinner/Spinner';
 import EditablePostCell from './components/EditablePostCell';
-import Error from '../../Error/Error';
+import Message from '../Message/Message';
 
 import { Form, Popconfirm, Table, Typography } from 'antd';
 import { useParams } from "react-router-dom";
@@ -23,8 +23,10 @@ const Posts: React.FC = () => {
     if (isLoading) {
         return <Spinner />
     }
+
     if (isError) {
-        return <Error />
+        return <Message status="error" title="Something went wrong, contact the administrators."
+            label="Refresh Page" />
     }
 
     const isEditing = (record: IPost) => record.id.toString() === editingKey;
