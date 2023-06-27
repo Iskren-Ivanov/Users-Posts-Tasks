@@ -1,8 +1,8 @@
 import styles from './PaginationButtons.module.css';
 
 const PaginationButtons = ({ totalPages, handlePageChange, currentPage }: any) => {
+    
     const buttons = [];
-
     for (let page = 1; page <= totalPages; page++) {
         buttons.push(
             <button

@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { IPost } from '../../interfaces/index';
 
 const Posts: React.FC = () => {
+  
     const params: any = useParams();
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
