@@ -10,7 +10,7 @@ import styles from './User.module.css';
 const Users: React.FC = () => {
     const { data: users = [], isLoading, isError } = useGetUsersQuery();
     const defaultActiveKey = 1;
-  
+
     // With useMemo reduced the render count of the component from 8 to 6
     const renderedContent = useMemo(() => {
         if (isLoading) {
